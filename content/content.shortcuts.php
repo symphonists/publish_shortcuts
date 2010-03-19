@@ -19,6 +19,7 @@
       $section_handle = $_GET["section"];
       $section_id = $sm->fetchIDFromHandle($section_handle);
       $shortcuts = $this->_driver->getShortcuts($section_id);
+      $shortcuts = array_reverse($shortcuts);
       echo "var shortcuts_section_id = $section_id;\n";
       echo "var shortcuts_section_handle = \"$section_handle\";\n";
       echo "var shortcuts_links = [";        
