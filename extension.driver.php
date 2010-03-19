@@ -21,10 +21,21 @@
       return array(
         'name' => 'Publish Shortcuts',
         'version' => '1.0',
-        'release-date' => '2010-03-17',
+        'release-date' => '2010-03-19',
         'author' => array(
           'name' => 'Max Wheeler',
           'email' => 'max@makenosound.com',
+        ),
+        'description' => 'Lets you define shortcut buttons for the section/publish index pages.',
+        'compatibility' => array(
+          '2.0.0' => false,
+          '2.0.1' => false,
+          '2.0.2' => false,
+          '2.0.3' => false,
+          '2.0.4' => false,
+          '2.0.5' => false,
+          '2.0.6' => false,
+          '2.0.7' => true
         )
       );
     }
