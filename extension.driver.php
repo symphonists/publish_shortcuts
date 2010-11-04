@@ -20,8 +20,8 @@
     {
       return array(
         'name' => 'Publish Shortcuts',
-        'version' => '1.0',
-        'release-date' => '2010-03-19',
+        'version' => '1.0.1',
+        'release-date' => '2010-11-04',
         'author' => array(
           'name' => 'Max Wheeler',
           'email' => 'max@makenosound.com',
@@ -169,7 +169,7 @@
             # Set selected
             foreach ($options as &$option)
             {
-              if ($option[0] == $shortcut['section_id']) $option[1] = true;
+              $option[1] = ($option[0] == $shortcut['section_id']) ? true : false;
             }
             
             $label = Widget::Label(__('Section'));
