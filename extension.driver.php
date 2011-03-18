@@ -39,6 +39,8 @@ Class extension_publish_shortcuts extends Extension {
 	}
 	
 	public function update($previousVersion) {
+		// Pre v1.1 (v1.0.1) had a column named `order` which is a reserved keyword in MySQL
+		// which could not be used in SQL queries
 		if(version_compare($previousVersion, '1.1', '<')) {
 			Administration::instance()->Database->query("ALTER TABLE `tbl_publish_shortcuts` CHANGE `order` `sort_order` int(11) NOT NULL");
 		}
@@ -134,6 +136,9 @@ Class extension_publish_shortcuts extends Extension {
 	 */
 	private function __buildDuplicatorItem($section, $shortcut=NULL) {
 		
+		// value of -1 signifies a duplicator "template"
+		$index = ($shortcut == NULL) ? '-1' : $shortcut['id'];
+		
 		$wrapper = new XMLElement('li');
 		$wrapper->setAttribute('class', ($shortcut == NULL) ? 'template' : '');
 		
@@ -141,18 +146,26 @@ Class extension_publish_shortcuts extends Extension {
 		
 		$divgroup = new XMLElement('div');
 		$divgroup->setAttribute('class', 'group');
-		
-		$index = ($shortcut == NULL) ? '-1' : $shortcut['id'];
 
 		$label = Widget::Label(__('Label'));
-		$label->appendChild(Widget::Input("settings[publish_shortcuts][".$index."][label]", General::sanitize($shortcut['label'])));
+		$label->appendChild(Widget::Input(
+			"settings[publish_shortcuts][" . $index . "][label]",
+			General::sanitize($shortcut['label']
+		)));
 		$divgroup->appendChild($label);
 
 		$label = Widget::Label(__('Link') . '<i>' . __('Prefix with {$root} for absolute URLs') . '</i>');
-		$label->appendChild(Widget::Input("settings[publish_shortcuts][".$index."][link]", General::sanitize($shortcut['link'])));
+		$label->appendChild(Widget::Input(
+			"settings[publish_shortcuts][" . $index . "][link]",
+			General::sanitize($shortcut['link']
+		)));
 		$divgroup->appendChild($label);
 		
-		$wrapper->appendChild(new XMLElement('input', NULL, array('type' => 'hidden', 'name' => 'settings[publish_shortcuts]['.$index.'][section_id]', 'value' => $section->get('id'))));
+		$wrapper->appendChild(new XMLElement('input', NULL, array(
+			'type' => 'hidden',
+			'name' => 'settings[publish_shortcuts][' . $index . '][section_id]',
+			'value' => $section->get('id')
+		)));
 		
 		$wrapper->appendChild($divgroup);
 		
