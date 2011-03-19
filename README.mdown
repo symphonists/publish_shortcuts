@@ -15,6 +15,6 @@ Lets you define shortcut buttons for the section/publish index pages.
 
 ## Changelog
 
-* **1.1** Symphony 2.2 compatibility
+* **1.1** Symphony 2.2 compatibility by [Nick Dunn](http://nick-dunn.co.uk/)
 * **1.0.1** Explicitly set `selected` to `false`
 * **1.0** Initial release
