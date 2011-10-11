@@ -14,6 +14,7 @@ var PublishShortcuts = {
 	
 	format_url: function(url) {
 		url = url.replace('{$root}', Symphony.Context.get('root'));
+		url = url.replace('{$filter}', location.search.substr(1,location.search.length));
 		return url;
 	}
 	
