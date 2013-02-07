@@ -3,11 +3,11 @@ var PublishShortcuts = {
 	render: function() {
 		
 		var links = Symphony.Context.get('publish_shortcuts');
-		var container = jQuery('#contents h2:first .create:first');
-		
+		var container = jQuery('#context .actions');
+
 		for(var i in links) {
-			container.after(
-				'<a href="' + this.format_url(links[i].link) + '" class="button publish-shortcut">' + links[i].label + '</a>'
+			container.append(
+				'<li><a href="' + this.format_url(links[i].link) + '" class="button drawer horizontal publish-shortcut">' + links[i].label + '</a></li>'
 			);
 		}
 	},
