@@ -154,7 +154,8 @@ Class extension_publish_shortcuts extends Extension {
 		)));
 		$divgroup->appendChild($label);
 
-		$label = Widget::Label(__('Link') . '<i>' . __('Prefix with {$root} for absolute URLs') . '</i>');
+		$label = Widget::Label(__('Link') . '<i>' . __('Prefix with {$root} for absolute URLs. Add {$filter} to add
+		the query string to this url (like a filter).') . '</i>');
 		$label->appendChild(Widget::Input(
 			"settings[publish_shortcuts][" . $index . "][link]",
 			General::sanitize($shortcut['link']
