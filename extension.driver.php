@@ -178,7 +178,7 @@ Class extension_publish_shortcuts extends Extension {
 	 * Add shortcuts to page DOM
 	 */
 	public function initaliseAdminPageHead($context) {
-		$page = $context['parent']->Page;
+		$page = Administration::instance()->Page;
 		
 		if ($page instanceof ContentPublish and $page->_context['page'] == 'index') {
 			
