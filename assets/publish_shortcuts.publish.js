@@ -5,10 +5,23 @@ var PublishShortcuts = {
 		var links = Symphony.Context.get('publish_shortcuts');
 		var container = jQuery('#context .actions');
 
-		for(var i in links) {
-			container.append(
-				'<li><a href="' + this.format_url(links[i].link) + '" class="button drawer horizontal publish-shortcut">' + links[i].label + '</a></li>'
-			);
+		if(container.length) {
+			/* Symphony 2.3+ */
+
+			for(var i in links) {
+				container.append(
+					'<li><a href="' + this.format_url(links[i].link) + '" class="button drawer horizontal publish-shortcut">' + links[i].label + '</a></li>'
+				);
+			}
+		} else {
+			/* Symphony 2.2- */
+			container = jQuery('#contents h2:first .create:first');
+
+			for(var i in links) {
+				container.after(
+					'<a href="' + this.format_url(links[i].link) + '" class="button publish-shortcut">' + links[i].label + '</a>'
+				);
+			}
 		}
 	},
 	
