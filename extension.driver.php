@@ -87,23 +87,18 @@ Class extension_publish_shortcuts extends Extension {
 		$fieldset->setAttribute('class', 'settings');
 		$fieldset->appendChild(new XMLElement('legend', __('Publish Shortcuts')));
 
-		$p = new XMLElement('p', __('Shortcut links for Section index pages'));
-		$p->setAttribute('class', 'help');
-		$fieldset->appendChild($p);
+		$info = new XMLElement('p', __('Custom links for publish indexes'));
+		$info->setAttribute('class', 'help');
+		$fieldset->appendChild($info);
 		
-		$group = new XMLElement('div');
-		$group->setAttribute('class', 'subsection');
-		$group->appendChild(new XMLElement('span', __('Shortcuts Links')));
+		$label = new XMLElement('p', __('Links') . '<i>' . __('Use <code>{$root}</code> for the URL and <code>{$filter}</code> for the current filter string.') . '</i>');
+		$label->setAttribute('class', 'label');
+		$fieldset->appendChild($label);
 		
 		$div = new XMLElement('div');
-		$div->setAttribute('class', 'contextual');
-		$h3 = new XMLElement('p', __('Filter'), array('class' => 'label'));
-		$h3->setAttribute('class', 'label');
-		$div->appendChild($h3);
+		$div->setAttribute('class', 'frame publishshortcuts');
 		
 		$ol = new XMLElement('ol');
-		$ol->setAttribute('id', 'fields-duplicator');
-		
 		$shortcuts = $this->__getShortcuts();
 		if(!is_array($shortcuts)) $shortcuts = array($shortcuts);
 		
@@ -121,13 +116,10 @@ Class extension_publish_shortcuts extends Extension {
 				
 			}
 		}
-		
+
 		$div->appendChild($ol);
-		
-		$group->appendChild($ol);
-		$fieldset->appendChild($group);
+		$fieldset->appendChild($div);
 		$context['wrapper']->appendChild($fieldset);
-		
 	}
 	
 	/**
@@ -142,25 +134,27 @@ Class extension_publish_shortcuts extends Extension {
 		$wrapper = new XMLElement('li');
 		$wrapper->setAttribute('class', ($shortcut == NULL) ? 'template' : '');
 		
-		$wrapper->appendChild(new XMLElement('h4', $section->get('name')));
+		// Header
+		$header = new XMLElement('header');
+		$headline = new XMLElement('h4', $section->get('name'));
+		$header->appendChild($headline);
+		$wrapper->appendChild($header);
 		
-		$divgroup = new XMLElement('div');
-		$divgroup->setAttribute('class', 'group');
+		// Content
+		$content = new XMLElement('div');
+		$content->setAttribute('class', 'two columns');
 
 		$label = Widget::Label(__('Label'));
-		$label->appendChild(Widget::Input(
-			"settings[publish_shortcuts][" . $index . "][label]",
-			General::sanitize($shortcut['label']
-		)));
-		$divgroup->appendChild($label);
+		$label->setAttribute('class', 'column');
+		$input = Widget::Input('settings[publish_shortcuts][' . $index . '][label]', General::sanitize($shortcut['label']));
+		$label->appendChild($input);
+		$content->appendChild($label);
 
-		$label = Widget::Label(__('Link') . '<i>' . __('Prefix with {$root} for absolute URLs. Add {$filter} to add
-		the query string to this url (like a filter).') . '</i>');
-		$label->appendChild(Widget::Input(
-			"settings[publish_shortcuts][" . $index . "][link]",
-			General::sanitize($shortcut['link']
-		)));
-		$divgroup->appendChild($label);
+		$label = Widget::Label(__('Link'));
+		$label->setAttribute('class', 'column');
+		$input = Widget::Input('settings[publish_shortcuts][' . $index . '][link]', General::sanitize($shortcut['link']));
+		$label->appendChild($input);
+		$content->appendChild($label);
 		
 		$wrapper->appendChild(new XMLElement('input', NULL, array(
 			'type' => 'hidden',
@@ -168,10 +162,9 @@ Class extension_publish_shortcuts extends Extension {
 			'value' => $section->get('id')
 		)));
 		
-		$wrapper->appendChild($divgroup);
+		$wrapper->appendChild($content);
 		
 		return $wrapper;
-		
 	}
 
 	/**
@@ -180,8 +173,8 @@ Class extension_publish_shortcuts extends Extension {
 	public function initaliseAdminPageHead($context) {
 		$page = Administration::instance()->Page;
 		
-		if ($page instanceof ContentPublish and $page->_context['page'] == 'index') {
-			
+		// Publish area
+		if($page instanceof ContentPublish and $page->_context['page'] == 'index') {
 			$sm = new SectionManager(Administration::instance());
 			$section_id = $sm->fetchIDFromHandle($page->_context['section_handle']);
 			$shortcuts = $this->__getShortcuts($section_id);
@@ -193,6 +186,11 @@ Class extension_publish_shortcuts extends Extension {
 			), 902011);
 			
 			$page->addScriptToHead(URL . '/extensions/publish_shortcuts/assets/publish_shortcuts.publish.js', 90211);
+		}
+
+		// Preferences
+		if($page instanceof ContentSystemPreferences) {
+			$page->addScriptToHead(URL . '/extensions/publish_shortcuts/assets/publish_shortcuts.preferences.js', 90211);
 		}
 	}
 	

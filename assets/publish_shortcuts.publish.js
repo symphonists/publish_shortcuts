@@ -1,38 +1,30 @@
-var PublishShortcuts = {
-	
-	render: function() {
-		
-		var links = Symphony.Context.get('publish_shortcuts');
-		var container = jQuery('#context .actions');
+(function($) {
 
-		if(container.length) {
-			/* Symphony 2.3+ */
+	var PublishShortcuts = {
+		actions: null,
 
-			for(var i in links) {
-				container.append(
-					'<li><a href="' + this.format_url(links[i].link) + '" class="button drawer horizontal publish-shortcut">' + links[i].label + '</a></li>'
-				);
+		init: function() {
+			var links = Symphony.Context.get('publish_shortcuts');
+
+			if(links.length) {
+				PublishShortcuts.actions = $('#context .actions');
+				$.each(links, PublishShortcuts.createButton);
 			}
-		} else {
-			/* Symphony 2.2- */
-			container = jQuery('#contents h2:first .create:first');
+		},
 
-			for(var i in links) {
-				container.after(
-					'<a href="' + this.format_url(links[i].link) + '" class="button publish-shortcut">' + links[i].label + '</a>'
-				);
-			}
+		createButton: function() {
+			PublishShortcuts.actions.append(
+				'<li><a href="' + PublishShortcuts.processParams(this.link) + '" class="button publish-shortcut">' + this.label + '</a></li>'
+			);
+		},
+
+		processParams: function(url) {
+			return url.replace('{$root}', Symphony.Context.get('root')).replace('{$filter}', location.search.substr(1));
 		}
-	},
-	
-	format_url: function(url) {
-		url = url.replace('{$root}', Symphony.Context.get('root'));
-		url = url.replace('{$filter}', location.search.substr(1,location.search.length));
-		return url;
 	}
-	
-};
 
-jQuery(document).ready(function() {
-	PublishShortcuts.render();
-});
+	$(document).on('ready.publishshortcuts', function() {
+		PublishShortcuts.init();
+	});
+
+})(window.jQuery);
