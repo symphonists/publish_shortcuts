@@ -10,12 +10,11 @@
 	<authors>
 		<author>
 			<name github="symphonists" symphony="community">Symphony Community</name>
+			<name github="makenosound" symphony="makenosound">Max Wheeler</name>
 		</author>
 	</authors>
-	<media>
-		<item type="image" url="http://symphonyextensions.com/makenosound/publish_shortcuts/media/publish_shortcuts.png">Publish Shortcuts: Lets you define shortcut buttons for the section/publish index pages.</item>
-	</media>
 	<releases>
+		<release version="1.2" date="2013-06-28" min="2.3" />
 		<release version="1.1" date="2011-03-18" min="2.2" max="2.2.x" />
 	</releases>
 </extension>
