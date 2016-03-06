@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension id="publish_shortcuts" status="released" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+<extension id="publish_shortcuts" status="released" xmlns="http://getsymphony.com/schemas/extension/1.0">
 	<name>Publish Shortcuts</name>
 	<description>Lets you define shortcut buttons for the section/publish index pages.</description>
 	<repo type="github">https://github.com/symphonists/publish_shortcuts</repo>
-	<url type="discuss">http://symphony-cms.com/discuss/thread/41545/</url>
+	<url type="discuss">http://www.getsymphony.com/discuss/thread/41545/</url>
 	<types>
 		<type>Interface</type>
+		<type>Shortcuts</type>
 	</types>
 	<authors>
 		<author>
 			<name github="symphonists" symphony="community">Symphony Community</name>
+			<website>http://www.getsymphony.com/</website>
+		</author>
+		<author>
 			<name github="makenosound" symphony="makenosound">Max Wheeler</name>
 		</author>
 	</authors>
 	<releases>
+		<release version="1.2.1" date="2013-06-28" min="2.3.x" max="2.x.x">
+			- Updated compatibility info
+		</release>
 		<release version="1.2" date="2013-06-28" min="2.3" />
 		<release version="1.1" date="2011-03-18" min="2.2" max="2.2.x" />
 	</releases>
