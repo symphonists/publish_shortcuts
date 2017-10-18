@@ -38,7 +38,7 @@ Class extension_publish_shortcuts extends Extension {
 		");
 	}
 	
-	public function update($previousVersion) {
+	public function update($previousVersion = false) {
 		// Pre v1.1 (v1.0.1) had a column named `order` which is a reserved keyword in MySQL
 		// which could not be used in SQL queries
 		if(version_compare($previousVersion, '1.1', '<')) {
