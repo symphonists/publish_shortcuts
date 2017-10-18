@@ -3,7 +3,7 @@
 	<name>Publish Shortcuts</name>
 	<description>Lets you define shortcut buttons for the section/publish index pages.</description>
 	<repo type="github">https://github.com/symphonists/publish_shortcuts</repo>
-	<url type="discuss">http://www.getsymphony.com/discuss/thread/41545/</url>
+	<url type="discuss">https://www.getsymphony.com/discuss/thread/41545/</url>
 	<types>
 		<type>Interface</type>
 		<type>Shortcuts</type>
@@ -18,6 +18,9 @@
 		</author>
 	</authors>
 	<releases>
+		<release version="1.2.2" date="2017-10-18" min="2.3.x" max="2.x.x">
+			- Updated compatibility info
+		</release>
 		<release version="1.2.1" date="2013-06-28" min="2.3.x" max="2.x.x">
 			- Updated compatibility info
 		</release>
